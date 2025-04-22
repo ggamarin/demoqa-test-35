@@ -1,29 +1,23 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-
 public class FillFormTest {
-
-
-
     @BeforeAll
     static void beforeAll() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        //Configuration.holdBrowserOpen = true;
         Configuration.browser = "chrome";
     }
         @Test
         void fillAllFieldsDemoqaForm() {
             open("/automation-practice-form");
+            executeJavaScript("$('#fixedban').remove()");
+            executeJavaScript("$('footer').remove()");
             $("#firstName").setValue("Grigoriy");
             $("#lastName").setValue("Gamarin");
             $("#userEmail").setValue("grisha@gmail.com");
@@ -36,7 +30,7 @@ public class FillFormTest {
             $("#subjectsInput").click();
             $("#subjectsInput").setValue("Chemistry").pressEnter();
             $("#hobbiesWrapper").$(byText("Reading")).click();
-            $("#uploadPicture").uploadFile(new File("src/test/resources/test.jpg"));
+            $("#uploadPicture").uploadFromClasspath("test.jpg");
             $("#currentAddress").setValue("Test Adress");
             $("#state").click();
             $("#state").$(byText("NCR")).click();
@@ -44,8 +38,6 @@ public class FillFormTest {
             $("#city").$(byText("Gurgaon")).click();
             $("#submit").click();
 
-
-        //assert
             $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Grigoriy Gamarin"));
             $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("grisha@gmail.com"));
             $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
@@ -56,7 +48,5 @@ public class FillFormTest {
             $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("test.jpg"));
             $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Test Adress"));
             $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Gurgaon"));
-
         }
     }
-
