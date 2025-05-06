@@ -13,6 +13,7 @@ public class FillFormTest extends TestBase {
     @DisplayName("Проверка успешного заполнения всех полей формы")
     void shouldFillAllFieldsDemoqaFormTest() {
         registrationPage.openPage()
+                .removeBanner()
                 .setFirstName("Grigoriy")
                 .setLastName("Gamarin")
                 .setEmail("grisha@gmail.com")
@@ -41,7 +42,7 @@ public class FillFormTest extends TestBase {
 
     @Test
     @DisplayName("Проверка успешного заполнения только обязательных полей формы")
-    void shouldFillRequiredFields(){
+    void shouldFillRequiredFields() {
         registrationPage.openPage()
                 .setFirstName("Grigoriy")
                 .setLastName("Gamarin")
@@ -56,7 +57,7 @@ public class FillFormTest extends TestBase {
 
     @Test
     @DisplayName("Валидация заполения обязательных полей формы")
-    void shouldValidateTestFormFields(){
+    void shouldValidateTestFormFields() {
         registrationPage.openPage()
                 .setSubmit();
         tableComponent.checkTableUnvisibility();
