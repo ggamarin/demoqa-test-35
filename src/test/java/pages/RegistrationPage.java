@@ -20,13 +20,14 @@ public class RegistrationPage {
             currentAddressInput = $("#currentAddress"),
             stateInput = $("#state"),
             cityInput = $("#city"),
-            submitInput = $("#submit");
+            submitInput = $("#submit"),
+            titleLabel =  $(".practice-form-wrapper");
 
     CalendarComponent calendarComponent = new CalendarComponent();
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+       titleLabel.shouldHave(text("Student Registration Form"));
         return this;
     }
 
