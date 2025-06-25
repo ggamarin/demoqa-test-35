@@ -3,6 +3,7 @@ package tests;
 import org.junit.jupiter.api.*;
 import pages.RegistrationPage;
 import pages.components.TableComponent;
+
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 
 @Tag("demoqa")
@@ -12,7 +13,7 @@ public class RemoteFormFillTests extends TestBase {
 
     @Test
     @DisplayName("Проверка успешного заполнения всех полей формы")
-    void shouldFillAllFieldsDemoqaFormTest() {
+    void shouldFillAllFormFieldsTest() {
         step("Open form", () -> {
             registrationPage.openPage()
                     .removeBanner();
@@ -47,5 +48,42 @@ public class RemoteFormFillTests extends TestBase {
                     .checkResult("State and City", "NCR Gurgaon");
         });
     }
+
+    @Test
+    @DisplayName("Проверка успешного заполнения только обязательных полей формы")
+    void shouldFillRequiredFieldsTest() {
+        step("Open form", () -> {
+            registrationPage.openPage()
+                    .removeBanner();
+        });
+        step("Fill form", () -> {
+            registrationPage.setFirstName("Grigoriy")
+                    .setLastName("Gamarin")
+                    .setGender("Male")
+                    .setUserNumber("1234567890")
+                    .setSubmit();
+        });
+
+        step("Verify results", () -> {
+            tableComponent.checkResult("Student Name", "Grigoriy Gamarin")
+                    .checkResult("Gender", "Male")
+                    .checkResult("Mobile", "1234567890");
+        });
     }
+
+    @Test
+    @DisplayName("Валидация заполения обязательных полей формы")
+    void shouldValidateFormFieldsTest() {
+        step("Open form", () -> {
+            registrationPage.openPage()
+                    .removeBanner();
+        });
+        step("Submit form", () -> {
+            registrationPage.setSubmit();
+        });
+        step("Verify results", () -> {
+            tableComponent.checkTableUnvisibility();
+        });
+    }
+}
 
