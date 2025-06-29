@@ -33,6 +33,8 @@ public class RegistrationPage {
     public RegistrationPage removeBanner() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
+        executeJavaScript("$('[id=\"Ad.Plus-970x250-1\"]').remove()");
+        executeJavaScript("$('[id^=\"Ad.Plus\"]').remove()");
         return this;
     }
 
@@ -105,4 +107,10 @@ public class RegistrationPage {
         submitInput.click();
         return this;
     }
+
+public  RegistrationPage scrollIntoView(){
+    $("#state").scrollIntoView(true).click();
+    return this;
+}
+
 }

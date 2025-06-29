@@ -3,7 +3,6 @@ package tests;
 import org.junit.jupiter.api.*;
 import pages.RegistrationPage;
 import pages.components.TableComponent;
-
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 
 @Tag("demoqa")
@@ -29,6 +28,7 @@ public class RemoteFormFillTests extends TestBase {
                     .setSubjectsInput("Chemistry")
                     .setHobbies("Reading")
                     .setUploadPicture("test.jpg")
+                    .scrollIntoView()
                     .setCurrentAddress("Test Address")
                     .setState("NCR")
                     .setCity("Gurgaon")
@@ -61,6 +61,7 @@ public class RemoteFormFillTests extends TestBase {
                     .setLastName("Gamarin")
                     .setGender("Male")
                     .setUserNumber("1234567890")
+                    .scrollIntoView()
                     .setSubmit();
         });
 
@@ -76,7 +77,8 @@ public class RemoteFormFillTests extends TestBase {
     void shouldValidateFormFieldsTest() {
         step("Open form", () -> {
             registrationPage.openPage()
-                    .removeBanner();
+                    .removeBanner()
+                    .scrollIntoView();
         });
         step("Submit form", () -> {
             registrationPage.setSubmit();
