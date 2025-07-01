@@ -6,6 +6,7 @@ import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import java.util.Map;
 
@@ -19,7 +20,6 @@ public class TestBase {
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browserVersion", "128.0");
         Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
-        SelenideLogger.addListener("allure", new AllureSelenide());
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
@@ -30,6 +30,11 @@ public class TestBase {
         String login = System.getProperty("login", "user1");
         String pass = System.getProperty("pass", "1234");
         Configuration.remote = String.format("https://%s:%s@%s/wd/hub", login, pass, selenoidHost);
+    }
+
+    @BeforeEach
+    void addLog(){
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @AfterEach
